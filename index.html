@@ -1,772 +1,469 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>NutriPlanner</title>
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Nutri Planner - Precision Wellness for Vietnamese Cuisine</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Oswald:wght@600&family=Inter:wght@400;500&display=swap"
-      rel="stylesheet"
-    />
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&amp;family=Inter:wght@100..900&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed-dim": "#95d3ba",
+                        "outline": "#6c7b6a",
+                        "on-primary-fixed-variant": "#005236",
+                        "surface-container-highest": "#dce2f7",
+                        "on-primary": "#ffffff",
+                        "inverse-surface": "#293040",
+                        "on-secondary": "#ffffff",
+                        "surface-tint": "#006c49",
+                        "on-tertiary-fixed": "#001a42",
+                        "on-tertiary-container": "#003e8a",
+                        "on-secondary-fixed": "#002117",
+                        "tertiary-fixed-dim": "#adc6ff",
+                        "inverse-on-surface": "#edf0ff",
+                        "primary-container": "#2ac48b",
+                        "background": "#f9f9ff",
+                        "secondary-container": "#adedd3",
+                        "on-surface": "#141b2b",
+                        "on-error-container": "#93000a",
+                        "secondary-fixed": "#b0f0d6",
+                        "error": "#ba1a1a",
+                        "surface-variant": "#dce2f7",
+                        "surface-dim": "#d3daef",
+                        "on-error": "#ffffff",
+                        "surface-bright": "#f9f9ff",
+                        "on-primary-container": "#004b32",
+                        "primary-fixed": "#6ffbbe",
+                        "tertiary-container": "#85adff",
+                        "on-primary-fixed": "#002113",
+                        "inverse-primary": "#4edea3",
+                        "outline-variant": "#bbcbb8",
+                        "on-secondary-container": "#306d58",
+                        "tertiary-fixed": "#d8e2ff",
+                        "primary": "#006c49",
+                        "on-surface-variant": "#3c4a3c",
+                        "surface": "#f9f9ff",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed-dim": "#4edea3",
+                        "on-background": "#141b2b",
+                        "tertiary": "#005ac2",
+                        "error-container": "#ffdad6",
+                        "secondary": "#2b6954",
+                        "on-secondary-fixed-variant": "#0b513d",
+                        "surface-container-high": "#e1e8fd",
+                        "on-tertiary-fixed-variant": "#004395",
+                        "on-tertiary": "#ffffff",
+                        "surface-container": "#e9edff",
+                        "surface-container-low": "#f1f3ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope", "sans-serif"],
+                        "body": ["Inter", "sans-serif"],
+                        "label": ["Inter", "sans-serif"]
+                    }
+                },
+            },
+        }
+    </script>
     <style>
-      *,
-      *::before,
-      *::after {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
-
-      :root {
-        --grey-light-hover: #e0e0e0;
-        --grey-light: #ebebeb;
-        --grey-normal: #a8a8a8;
-        --grey-dark: #7e7e7e;
-        --grey-darker: #262626;
-        --grey-darker-hover: #656565;
-        --black: #121212;
-        --white: #ffffff;
-        --text-dark: #333333;
-        --border: #dedede;
-      }
-
-      html {
-        scroll-behavior: smooth;
-      }
-      body {
-        font-family: "Poppins", sans-serif;
-        background: #fff;
-        color: var(--text-dark);
-        overflow-x: hidden;
-        max-width: 390px;
-        margin: 0 auto;
-      }
-
-      /* ── NAV ── */
-      nav {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 16px 20px;
-        position: sticky;
-        top: 0;
-        background: #fff;
-        z-index: 100;
-        border-bottom: 1px solid #f0f0f0;
-      }
-      .logo {
-        display: flex;
-        align-items: flex-end;
-        gap: 4px;
-      }
-      .logo img {
-        height: 36px;
-      }
-      .logo-text {
-        font-family: "Oswald", sans-serif;
-        font-weight: 600;
-        font-size: 18px;
-        letter-spacing: -0.72px;
-        text-transform: uppercase;
-        color: #000;
-        line-height: 1;
-      }
-      .nav-btn {
-        background: linear-gradient(to top, #121212, #202020 62%);
-        border: 1px solid #2d2d2d;
-        color: #cdcdcd;
-        font-family: "Poppins", sans-serif;
-        font-size: 13px;
-        padding: 8px 18px;
-        border-radius: 10px;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        gap: 4px;
-      }
-
-      /* ── HERO ── */
-      .hero {
-        padding: 32px 24px 16px;
-        text-align: center;
-        position: relative;
-        overflow: hidden;
-      }
-      .hero-tag {
-        display: inline-block;
-        background: var(--grey-light);
-        color: var(--grey-dark);
-        font-size: 11px;
-        font-weight: 500;
-        padding: 4px 12px;
-        border-radius: 20px;
-        margin-bottom: 14px;
-      }
-      .hero h1 {
-        font-size: 30px;
-        font-weight: 700;
-        letter-spacing: -1px;
-        line-height: 1.2;
-        color: #000;
-        margin-bottom: 10px;
-      }
-      .hero h1 span {
-        color: var(--grey-dark);
-      }
-      .hero-sub {
-        font-size: 14px;
-        color: var(--grey-dark);
-        line-height: 1.6;
-        letter-spacing: -0.56px;
-        margin-bottom: 28px;
-      }
-
-      /* Phone illustration area */
-      .hero-visual {
-        position: relative;
-        height: 340px;
-        margin: 0 -24px;
-      }
-      .hero-visual .circles {
-        position: absolute;
-        inset: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-      .circle {
-        position: absolute;
-        border-radius: 50%;
-        border: 1.5px dashed rgba(0, 0, 0, 0.15);
-      }
-      .c1 {
-        width: 210px;
-        height: 210px;
-        opacity: 0.54;
-      }
-      .c2 {
-        width: 274px;
-        height: 274px;
-        opacity: 0.42;
-      }
-      .c3 {
-        width: 338px;
-        height: 338px;
-        opacity: 0.23;
-      }
-
-      .hero-phone-wrap {
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-        top: 0;
-        bottom: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-      .hero-phone-wrap img.main-hand {
-        height: 280px;
-        position: relative;
-        z-index: 2;
-        filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.2));
-      }
-
-      /* Floating icons */
-      .float-icon {
-        position: absolute;
-        z-index: 3;
-        background: linear-gradient(to bottom, #202020, #4b4b4b);
-        border: 2px solid #585858;
-        border-radius: 9px;
-        padding: 10px;
-        box-shadow: -8px 8px 15px -2px rgba(0, 0, 0, 0.3);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-      .float-icon img {
-        width: 28px;
-        height: 28px;
-      }
-      .fi-1 {
-        top: 40px;
-        left: 30px;
-        transform: rotate(-11deg);
-      }
-      .fi-2 {
-        top: 100px;
-        left: 20px;
-        transform: rotate(14deg);
-      }
-      .fi-3 {
-        top: 40px;
-        right: 30px;
-        transform: rotate(19deg);
-      }
-      .fi-4 {
-        top: 100px;
-        right: 18px;
-        transform: rotate(6deg);
-      }
-      .fi-5 {
-        top: 170px;
-        right: 22px;
-        transform: rotate(0deg);
-      }
-
-      /* Hero fade gradient */
-      .hero-fade {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        height: 120px;
-        background: linear-gradient(to top, white, transparent);
-        pointer-events: none;
-        z-index: 4;
-      }
-
-      .section-subtitle {
-        font-size: 14px;
-        color: var(--grey-dark);
-        text-align: center;
-        letter-spacing: -0.56px;
-        line-height: 1.6;
-        margin-bottom: 8px;
-      }
-      .section-h2 {
-        font-size: 26px;
-        font-weight: 600;
-        text-align: center;
-        letter-spacing: -1.04px;
-        color: #000;
-        margin-bottom: 32px;
-      }
-
-      /* ── HOW IT WORKS ── */
-      .how {
-        padding: 12px 0 40px;
-        overflow: hidden;
-      }
-      .how-scroller {
-        display: flex;
-        gap: 16px;
-        overflow-x: auto;
-        padding: 0 24px;
-        scrollbar-width: none;
-      }
-      .how-scroller::-webkit-scrollbar {
-        display: none;
-      }
-
-      .step-card {
-        flex: 0 0 220px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      }
-      .step-phone {
-        height: 200px;
-        position: relative;
-        width: 100%;
-        display: flex;
-        align-items: flex-end;
-        justify-content: center;
-      }
-      .step-phone img {
-        height: 190px;
-        object-fit: contain;
-      }
-      .step-fade {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        height: 80px;
-        background: linear-gradient(to top, white, transparent);
-        pointer-events: none;
-      }
-      .step-info {
-        background: #fff;
-        border: 1px solid #e0e0e0;
-        border-radius: 12px;
-        padding: 14px;
-        width: 100%;
-        display: flex;
-        gap: 10px;
-        align-items: flex-start;
-      }
-      .step-icon {
-        flex-shrink: 0;
-      }
-      .step-icon img {
-        width: 28px;
-        height: 28px;
-      }
-      .step-icon .icon-bg {
-        background: var(--grey-light);
-        border-radius: 6px;
-        padding: 6px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-      .step-icon .icon-bg img {
-        width: 14px;
-        height: 14px;
-      }
-      .step-text h3 {
-        font-size: 16px;
-        font-weight: 600;
-        color: #333;
-        letter-spacing: -0.64px;
-        line-height: 1.2;
-        margin-bottom: 6px;
-      }
-      .step-text p {
-        font-size: 12px;
-        color: var(--grey-dark);
-        letter-spacing: -0.48px;
-        line-height: 1.5;
-      }
-
-      /* ── CTA BANNER ── */
-      .cta-banner {
-        margin: 0 18px 32px;
-        background: linear-gradient(62deg, #262626 27%, #434343 95%);
-        border-radius: 22px;
-        padding: 20px 16px;
-        position: relative;
-        overflow: hidden;
-        min-height: 120px;
-      }
-      .cta-banner-text {
-        position: relative;
-        z-index: 2;
-      }
-      .cta-banner h3 {
-        font-size: 15px;
-        font-weight: 600;
-        color: var(--grey-normal);
-        letter-spacing: -0.16px;
-        line-height: 1.3;
-        margin-bottom: 8px;
-      }
-      .cta-notification {
-        position: absolute;
-        right: -8px;
-        bottom: -10px;
-        z-index: 3;
-        background: #fff;
-        border: 0.4px solid var(--border);
-        border-radius: 12px;
-        padding: 7px 12px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        width: 160px;
-        box-shadow: 4px 4px 14px 5px rgba(0, 0, 0, 0.22);
-        transform: rotate(-15deg);
-      }
-      .notif-logo img {
-        width: 22px;
-        height: 22px;
-      }
-      .notif-text .nt {
-        font-size: 4.5px;
-        font-weight: 500;
-        color: #262626;
-      }
-      .notif-text .ns {
-        font-size: 3.2px;
-        color: #656565;
-        line-height: 1.5;
-        margin-top: 2px;
-      }
-      .cta-desc {
-        font-size: 11px;
-        color: var(--grey-dark);
-        letter-spacing: -0.48px;
-        line-height: 1.5;
-        max-width: 140px;
-        margin-top: 4px;
-      }
-
-      /* ── CTA BUTTON ── */
-      .cta-btn-wrap {
-        padding: 0 24px 16px;
-      }
-      .cta-btn {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 6px;
-        background: linear-gradient(to top, #121212, #202020 62%);
-        border: 1px solid #2d2d2d;
-        border-radius: 13px;
-        color: #cdcdcd;
-        font-family: "Poppins", sans-serif;
-        font-size: 16px;
-        letter-spacing: -0.64px;
-        padding: 14px;
-        width: 100%;
-        cursor: pointer;
-        transition: opacity 0.2s;
-      }
-      .cta-btn:hover {
-        opacity: 0.85;
-      }
-      .cta-btn img {
-        width: 22px;
-        height: 22px;
-      }
-
-      /* ── FEATURES STRIP ── */
-      .features-strip {
-        display: flex;
-        gap: 8px;
-        padding: 0 24px 32px;
-        overflow-x: auto;
-        scrollbar-width: none;
-        justify-content: center;
-        width: 100%;
-      }
-      .features-strip::-webkit-scrollbar {
-        display: none;
-      }
-      .feat-pill {
-        flex: 0 0 auto;
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        background: var(--grey-light);
-        border-radius: 20px;
-        padding: 8px 14px;
-        font-size: 12px;
-        color: #444;
-        white-space: nowrap;
-      }
-      .feat-pill span {
-        font-size: 15px;
-      }
-
-      /* ── FOOTER ── */
-      footer {
-        background: #f7f7f7;
-        border-top: 1px solid #ececec;
-        padding: 24px;
-        text-align: center;
-      }
-      footer .logo {
-        justify-content: center;
-        margin-bottom: 10px;
-      }
-      footer p {
-        font-size: 11px;
-        color: var(--grey-dark);
-        line-height: 1.6;
-      }
-      footer .footer-links {
-        display: flex;
-        justify-content: center;
-        gap: 20px;
-        margin-top: 12px;
-      }
-      footer a {
-        font-size: 11px;
-        color: var(--grey-dark);
-        text-decoration: none;
-      }
-      footer a:hover {
-        color: #000;
-      }
-
-      /* DESKTOP EXPAND */
-      @media (min-width: 600px) {
         body {
-          max-width: 100%;
+            font-family: 'Inter', sans-serif;
+            background-color: #f9f9ff;
+            color: #141b2b;
         }
-        .hero,
-        nav,
-        .how,
-        .cta-btn-wrap,
-        .cta-banner {
-          max-width: 960px;
-          margin-left: auto;
-          margin-right: auto;
+
+        .font-headline {
+            font-family: 'Manrope', sans-serif;
         }
-        .how {
-          padding: 12px 0 60px;
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
-        .how-scroller {
-          justify-content: center;
-          overflow-x: hidden;
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(12px);
+            border-left: 2px solid #006c49;
         }
-        .step-card {
-          flex: 0 0 200px;
+
+        .nutri-gradient {
+            background: linear-gradient(135deg, #006c49 0%, #2ac48b 100%);
         }
-        .cta-banner {
-          max-width: calc(960px - 36px);
+
+        .ambient-shadow {
+            box-shadow: 0 20px 40px rgba(20, 27, 43, 0.06);
         }
-      }
     </style>
-  </head>
-  <body>
-    <!-- NAV -->
-    <nav>
-      <div class="logo">
-        <div class="logo">
-          <img src="./images/Logo.svg" alt="Logo" height="10" />
-        </div>
-      </div>
-      <button class="nav-btn">
-        Get Started
-        <img
-          src="https://www.figma.com/api/mcp/asset/09b95192-adb1-4116-8b47-a9d1de8ee5c4"
-          width="16"
-          height="16"
-          alt=""
-        />
-      </button>
-    </nav>
+</head>
 
-    <!-- HERO -->
-    <section class="hero">
-      <div class="hero-tag">🥗 Smart Nutrition Tracker</div>
-      <h1>Effortless<br /><span>Calorie Tracking</span></h1>
-      <p class="hero-sub">
-        No typing, no searching.<br />Just scan, snap, and go using AI.
-      </p>
-
-      <div class="hero-visual">
-        <!-- Dashed circles -->
-        <div class="circles">
-          <div class="circle c1"></div>
-          <div class="circle c2"></div>
-          <div class="circle c3"></div>
-        </div>
-
-        <!-- Floating food icons -->
-        <div class="float-icon fi-1">
-          <img
-            src="https://www.figma.com/api/mcp/asset/4f95ed1a-06be-4786-a0f6-280a2d6b278c"
-            alt="drop"
-          />
-        </div>
-        <div class="float-icon fi-2">
-          <img
-            src="https://www.figma.com/api/mcp/asset/5fee6b5a-7e41-44f1-b3e0-bad42076bf5c"
-            alt="chicken"
-          />
-        </div>
-        <div class="float-icon fi-3">
-          <img
-            src="https://www.figma.com/api/mcp/asset/d00733d9-751d-40da-9eb2-943d70b981df"
-            alt="carbs"
-          />
-        </div>
-        <div class="float-icon fi-4">
-          <img
-            src="https://www.figma.com/api/mcp/asset/0beb4e4c-05df-47c2-b454-d935e645eed2"
-            alt="calories"
-          />
-        </div>
-        <div class="float-icon fi-5">
-          <img
-            src="https://www.figma.com/api/mcp/asset/81cc36f7-7064-4ebf-a261-954527d5a0d8"
-            alt="salad"
-          />
-        </div>
-
-        <!-- Main phone in hand -->
-        <div class="hero-phone-wrap">
-          <img
-            class="main-hand"
-            src="https://www.figma.com/api/mcp/asset/62909f53-0329-4491-aa63-f8da1c6e4990"
-            alt="App mockup"
-          />
-        </div>
-
-        <div class="hero-fade"></div>
-      </div>
-    </section>
-
-    <!-- Features pills -->
-    <div class="features-strip">
-      <div class="feat-pill"><span>🔥</span> Calorie Counter</div>
-      <div class="feat-pill"><span>📸</span> Food Scanner</div>
-      <div class="feat-pill"><span>📊</span> Nutrition Insights</div>
-      <div class="feat-pill"><span>💧</span> Water Tracker</div>
-      <div class="feat-pill"><span>🎯</span> Goal Setting</div>
-    </div>
-
-    <!-- HOW IT WORKS -->
-    <section class="how">
-      <p class="section-subtitle">Simple & Fast</p>
-      <h2 class="section-h2">How It Works</h2>
-
-      <div class="how-scroller">
-        <!-- Step 1 -->
-        <div class="step-card">
-          <div class="step-phone">
-            <img
-              src="https://www.figma.com/api/mcp/asset/22af4f1e-29b3-41bb-988e-97090ddc36fa"
-              alt="Create Profile"
-            />
-            <div class="step-fade"></div>
-          </div>
-          <div class="step-info">
-            <div class="step-icon">
-              <div class="icon-bg">
-                <img
-                  src="https://www.figma.com/api/mcp/asset/462e29bc-15c8-4f22-ae3b-046cad12b647"
-                  alt="edit"
-                />
-              </div>
+<body class="bg-background text-on-background antialiased overflow-x-hidden">
+    <!-- TopNavBar -->
+    <header class="fixed top-0 w-full z-50 bg-surface/70 backdrop-blur-xl shadow-sm">
+        <nav class="flex justify-between items-center px-8 py-4 max-w-7xl mx-auto">
+            <div class="text-xl font-black text-primary tracking-tight font-headline">Nutri Planner</div>
+            <div class="hidden md:flex items-center gap-8">
+                <a class="text-on-surface-variant hover:text-primary transition-colors text-sm font-medium"
+                    href="#problems">Problems</a>
+                <a class="text-on-surface-variant hover:text-primary transition-colors text-sm font-medium"
+                    href="#users">Target Users</a>
+                <a class="text-on-surface-variant hover:text-primary transition-colors text-sm font-medium"
+                    href="#features">Features</a>
+                <a class="text-on-surface-variant hover:text-primary transition-colors text-sm font-medium"
+                    href="#showcase">Showcase</a>
             </div>
-            <div class="step-text">
-              <h3>Create Your Profile</h3>
-              <p>
-                Set your height, weight, age, and nutrition goals in just a few
-                taps.
-              </p>
+            <div class="flex items-center gap-4">
+                <button class="text-on-surface-variant hover:text-primary transition-colors text-sm font-semibold">Sign
+                    In</button>
+                <button
+                    class="nutri-gradient text-white px-6 py-2.5 rounded-full text-sm font-bold shadow-md hover:opacity-90 transition-all active:scale-95">Get
+                    Started</button>
             </div>
-          </div>
+        </nav>
+    </header>
+    <main>
+        <!-- Hero Section -->
+        <section class="pt-40 pb-20 px-8 max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div class="space-y-8">
+                    <h1
+                        class="text-6xl md:text-7xl font-extrabold font-headline leading-[1.1] tracking-tight text-on-background">
+                        Eat Smart, Stay Fit, <br /><span class="text-primary">Authentic Vietnamese Taste</span>
+                    </h1>
+                    <p class="text-xl text-on-surface-variant max-w-lg leading-relaxed">
+                        Say goodbye to manual logging. Snap and scan your meals with AI instantly. Precision nutrition
+                        built for the local palate.
+                    </p>
+                    <div class="flex items-center gap-6 pt-4">
+                        <button
+                            class="nutri-gradient text-white px-8 py-4 rounded-xl text-lg font-bold shadow-lg hover:opacity-90 transition-all flex items-center gap-2">
+                            Get Started
+                            <span class="material-symbols-outlined">arrow_forward</span>
+                        </button>
+                        <div class="flex -space-x-3">
+                            <div
+                                class="w-10 h-10 rounded-full border-2 border-white bg-surface-container overflow-hidden">
+                                <img alt="User" data-alt="avatar of a young professional smiling"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDLgzIoyNz_lKHYLlP0eeo9X4n5H8mDxRS2MibG-jOsVKADkd0mZUKbEZr4PfU2Mi8m9oouLVSjSEwyo-jm_TvSagF4rs0-_3IM7Mkb2_jCcKoY7B9feuLNmYpid2L_qrLerYNWIT4FMZ6cZlU6dS7APTfgyIm4ubGQD14mF1KyXL3k0eXXi408oevGGexib8ZNQ2MEuX_EP3pAv81cyYoJ_h-eW088M0lCFgar4UvwY9RRDmbAgEmpSu3q7hNX0quqBaIcpC-08oY" />
+                            </div>
+                            <div
+                                class="w-10 h-10 rounded-full border-2 border-white bg-surface-container overflow-hidden">
+                                <img alt="User" data-alt="avatar of a healthy active woman"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCg25O-beYOe0K7SvkoV2HVqdoSxti66dlPnO-8jX4vhnsOon14a3knmBNdGZgawqY_VdJN9UYgWyjVtMaKscWVxwmLSHrO_KTsqCTGM3Rcn74y1Rhf61Fi6qeBCLELvqHv_y6qEQBqeQjemm6UFnX__MvXq1-jaQvK8OpP26nbjWfqtEhg9HdbRAG0e3jE-JdPnFmjwT6XLZFALxnosE84WOTcRDMPs6QkBSiv5fYke6xE2saOexAD86w969dZNdz9pXJOMNXHCBQ" />
+                            </div>
+                            <div
+                                class="w-10 h-10 rounded-full border-2 border-white bg-surface-container overflow-hidden">
+                                <img alt="User" data-alt="avatar of a fitness enthusiast"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuChgknnKBl34hJLUDoxVhCS3_M1w9ZFWTQKSmFW_cDxSJD9kY6lEPmzdZE2wBU0qT-yyF5t1Uyr2mP7PUxrpHeIk8LiXHNpDbQevhQQZSX8J2B3tB_xjfgKeKei9qA4-1IxLxgidEngizMGgNih2CP_wZW7EFUBqV2llOQxQqVRvro9rXK0EyqCt4wECc1ZvuSvi_qU5gjl0U481IYfWHh4jzsCTmgTefF3OGXzfxJql3Vf92uSX0qFuAhlbGHmOzMCDXwT8BDDx9U" />
+                            </div>
+                            <div
+                                class="flex items-center justify-center w-10 h-10 rounded-full border-2 border-white bg-primary-container text-[10px] font-bold text-on-primary-container">
+                                +2k
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative">
+                    <div class="absolute -inset-4 bg-primary/10 rounded-full blur-3xl"></div>
+                    <img alt="Nutri Planner App Mockup" class="relative w-full drop-shadow-2xl rounded-3xl"
+                        data-alt="high-end minimalist smartphone mockup showing a modern nutrition app interface with calorie tracking and a vibrantly colored bowl of Pho"
+                        src="./images/Artboard.svg" />
+                    <!-- Floating Nutri-Glass Card -->
+                    <div class="absolute bottom-10 -left-8 glass-card p-6 rounded-xl ambient-shadow max-w-[200px]">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="material-symbols-outlined text-primary"
+                                style="font-variation-settings: 'FILL' 1;">bolt</span>
+                            <span class="text-xs font-bold text-primary">AI INSIGHT</span>
+                        </div>
+                        <p class="text-sm font-semibold text-on-background">Cơm Tấm detected</p>
+                        <p class="text-[10px] text-on-surface-variant">Estimated: 645 kcal</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Problem Statement Section -->
+        <section class="py-24 bg-surface-container-low" id="problems">
+            <div class="max-w-7xl mx-auto px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-extrabold font-headline mb-4">Why are global apps hard to use?</h2>
+                    <div class="w-20 h-1.5 nutri-gradient mx-auto rounded-full"></div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div
+                        class="bg-surface-container-lowest p-10 rounded-xl space-y-6 hover:translate-y-[-4px] transition-transform duration-300">
+                        <div
+                            class="w-14 h-14 bg-error-container text-error rounded-lg flex items-center justify-center">
+                            <span class="material-symbols-outlined text-3xl">timer_off</span>
+                        </div>
+                        <h3 class="text-2xl font-bold font-headline">Manual Logging Fatigue</h3>
+                        <p class="text-on-surface-variant leading-relaxed">
+                            Spending 15 minutes per meal just to find the right ingredients, spices, and portion sizes
+                            is exhausting. Most people quit after just three days.
+                        </p>
+                    </div>
+                    <div
+                        class="bg-surface-container-lowest p-10 rounded-xl space-y-6 hover:translate-y-[-4px] transition-transform duration-300">
+                        <div
+                            class="w-14 h-14 bg-tertiary-container text-tertiary rounded-lg flex items-center justify-center">
+                            <span class="material-symbols-outlined text-3xl">wrong_location</span>
+                        </div>
+                        <h3 class="text-2xl font-bold font-headline">Lack of Local Food Data</h3>
+                        <p class="text-on-surface-variant leading-relaxed">
+                            Unable to find Bún Đậu, Cơm Tấm, or Bánh Mì in international nutrition databases. Generic
+                            entries lead to massive calorie miscalculations.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Target Users Section -->
+        <section class="py-24 px-8 max-w-7xl mx-auto" id="users">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-4">
+                <div class="max-w-xl">
+                    <h2 class="text-4xl font-extrabold font-headline mb-4">Who is it for?</h2>
+                    <p class="text-on-surface-variant">We tailor your experience based on your lifestyle, goals, and
+                        daily environment.</p>
+                </div>
+                <button class="text-primary font-bold flex items-center gap-2 hover:opacity-80">
+                    See success stories <span class="material-symbols-outlined">chevron_right</span>
+                </button>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Fitness Enthusiasts -->
+                <div class="group relative overflow-hidden rounded-xl h-[450px]">
+                    <img alt="Fitness Enthusiast"
+                        class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        data-alt="active young man doing functional training in a sunlit gym with clean aesthetics"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBh1K9X31-1ey2bk6BzcgjA4lQjN2g_J2pnkk9M9PCv-bqjVrGYfNnpB6t1qjHrwC8FF9q_djfF0ld3_OnSQ7DzoDkm548o3sfoqByNiTH6IZ13024SlU-OHWO9UKyP3zOh9oGVWFTBO7wExnPzENse4mZV7K2uchorgd-6BeY-yqdZw1rpok_eYUR6YKzLBYf84cOBzqvtN2eth7_0anovDsButTDHfUa3p9NF7b9MCtieXM0_rJ3Z1nLDSLQAMTE02R7aXtF0tI0" />
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-on-background/90 via-on-background/20 to-transparent">
+                    </div>
+                    <div class="absolute bottom-0 p-8">
+                        <h3 class="text-white text-2xl font-bold font-headline mb-2">Fitness Enthusiasts</h3>
+                        <p class="text-white/80 text-sm">Perfect macro ratios for muscle gain or fat loss while enjoying
+                            local dishes.</p>
+                    </div>
+                </div>
+                <!-- Office Workers -->
+                <div class="group relative overflow-hidden rounded-xl h-[450px]">
+                    <img alt="Office Worker"
+                        class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        data-alt="professional woman sitting in a modern office with a healthy salad bowl and glass of water"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdiyxnJjrUR-uG1SCZLSzfdqwRsUI7CFR6EFhWhMEXNLHgf9PaU9f8oagi7dybl2n5a5EbUKijxCec0_M5k2vuSHVuDhFEZs2iZI8abDgXRFu6enlEMYFA3Vxh_eV4VPuEp6BRxZeHHwN6haEBVPCtPwlQQrggYVqr2ALO5c2P1VcYm4SaGr8Sn3ABX9PltAKeTXQg1pYw0LliUR8OUIfhbDrzEU8cEw5vhwMZXWYJ1XaguwezYL1vcm9Mb9PxSJhAQDfVJHdXNGU" />
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-on-background/90 via-on-background/20 to-transparent">
+                    </div>
+                    <div class="absolute bottom-0 p-8">
+                        <h3 class="text-white text-2xl font-bold font-headline mb-2">Office Workers</h3>
+                        <p class="text-white/80 text-sm">Quick AI scanning for lunch outings and busy meeting schedules.
+                        </p>
+                    </div>
+                </div>
+                <!-- Wellness Community -->
+                <div class="group relative overflow-hidden rounded-xl h-[450px]">
+                    <img alt="Wellness Community"
+                        class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        data-alt="group of friends laughing together at a healthy communal dinner table with fresh greens"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuD8NbGgQEMx31clFo62CcFJFWtMSlmPOSyvBRGzRpL94zWD6CGDV49mASPSVRNnZxoDrthvRz61hMejoRUAaASiEbLQHstSJ8Qir3qT0y_9t8dvMfupOqN95TctykphFb6MOSZZ839MUaQ9kIppOba2xw-XHhLvKKoxJ3QKtW6vZ7CcuGbNzwcnaVhfHuaJglz15LOUKtvarNybGgnDfCxXxhq1X7C0x0boMCUe7lrjG0fNnirrM1DBW_xLYADRzr2PBgEo2WBZe2g" />
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-on-background/90 via-on-background/20 to-transparent">
+                    </div>
+                    <div class="absolute bottom-0 p-8">
+                        <h3 class="text-white text-2xl font-bold font-headline mb-2">Wellness Community</h3>
+                        <p class="text-white/80 text-sm">Supportive environment for sustainable lifestyle shifts and
+                            long-term health.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Key Features Section -->
+        <section class="py-24 bg-surface-container-low" id="features">
+            <div class="max-w-7xl mx-auto px-8">
+                <div class="text-center mb-20">
+                    <h2 class="text-4xl font-extrabold font-headline mb-4">Powerful Features, Effortless Experience</h2>
+                    <p class="text-on-surface-variant max-w-2xl mx-auto">Everything you need to master your nutrition
+                        without the friction of traditional tracking apps.</p>
+                </div>
+                <div class="space-y-32">
+                    <!-- Feature 1 -->
+                    <div class="flex flex-col lg:flex-row items-center gap-16">
+                        <div class="lg:w-1/2 space-y-6">
+                            <div
+                                class="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-primary/10 text-primary font-bold text-xs">
+                                <span class="material-symbols-outlined text-sm">camera</span> SMART VISION
+                            </div>
+                            <h3 class="text-4xl font-extrabold font-headline">AI Food Scanner</h3>
+                            <p class="text-lg text-on-surface-variant leading-relaxed">
+                                Our proprietary computer vision model is trained specifically on Southeast Asian
+                                cuisine. Accurately identify 500+ Vietnamese dishes—from the complex layers of Bún Bò
+                                Huế to the simple elegance of Gỏi Cuốn—with just a single photo.
+                            </p>
+                            <ul class="space-y-3">
+                                <li class="flex items-center gap-3 text-on-background font-medium">
+                                    <span class="material-symbols-outlined text-primary">check_circle</span> Instant
+                                    dish recognition
+                                </li>
+                                <li class="flex items-center gap-3 text-on-background font-medium">
+                                    <span class="material-symbols-outlined text-primary">check_circle</span> Automated
+                                    portion estimation
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="lg:w-1/2">
+                            <img alt="AI Scanner UI" class="rounded-xl ambient-shadow w-full"
+                                data-alt="UI display showing a camera viewfinder identifying a bowl of Vietnamese noodle soup with bounding boxes and calorie labels"
+                                src="./images/Artboard.svg" />
+                        </div>
+                    </div>
+                    <!-- Feature 2 -->
+                    <div class="flex flex-col lg:flex-row-reverse items-center gap-16">
+                        <div class="lg:w-1/2 space-y-6">
+                            <div
+                                class="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-secondary/10 text-secondary font-bold text-xs">
+                                <span class="material-symbols-outlined text-sm">analytics</span> PRECISION DATA
+                            </div>
+                            <h3 class="text-4xl font-extrabold font-headline">Personalized Macro Tracking</h3>
+                            <p class="text-lg text-on-surface-variant leading-relaxed">
+                                We don't believe in one-size-fits-all. Our AI adjusts your daily targets based on your
+                                metabolic rate, activity level, and sleep quality. It dynamically recalibrates your
+                                needs throughout the day.
+                            </p>
+                            <div class="flex gap-4">
+                                <div class="bg-surface-container-lowest p-4 rounded-lg flex-1">
+                                    <div class="text-2xl font-bold text-primary">2,400</div>
+                                    <div class="text-[10px] uppercase tracking-wider text-on-surface-variant font-bold">
+                                        Goal Kcal</div>
+                                </div>
+                                <div class="bg-surface-container-lowest p-4 rounded-lg flex-1">
+                                    <div class="text-2xl font-bold text-tertiary">180g</div>
+                                    <div class="text-[10px] uppercase tracking-wider text-on-surface-variant font-bold">
+                                        Protein</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="lg:w-1/2">
+                            <img alt="Macro Tracking UI" class="rounded-xl ambient-shadow w-full"
+                                data-alt="clean dashboard visualization with circular progress rings and nutrient breakdown graphs in shades of emerald and teal"
+                                src="./images/Tracking.svg" />
+                        </div>
+                    </div>
+                    <!-- Feature 3 -->
+                    <div class="flex flex-col lg:flex-row items-center gap-16">
+                        <div class="lg:w-1/2 space-y-6">
+                            <div
+                                class="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-tertiary/10 text-tertiary font-bold text-xs">
+                                <span class="material-symbols-outlined text-sm">restaurant</span> LOCAL FLAVORS
+                            </div>
+                            <h3 class="text-4xl font-extrabold font-headline">Local Meal Recommendations</h3>
+                            <p class="text-lg text-on-surface-variant leading-relaxed">
+                                Stop eating bland "diet food." Access thousands of authentic Vietnamese recipes curated
+                                by nutritionists to be both delicious and perfectly balanced. We tell you exactly what
+                                to order at the street stall or cook at home.
+                            </p>
+                        </div>
+                        <div class="lg:w-1/2">
+                            <img alt="Recipe Recommendations" class="rounded-xl ambient-shadow w-full"
+                                data-alt="editorial style food photography grid showing healthy Vietnamese home-cooked meals with ingredient lists"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAc2_5yBqgCl9JxLUr3RYv6EiWR4XDEEgyBSC-AMvtrKaRqAR-IpvVCHpEixM6wFjYaTMH7-6s9YHoh7ob5cANPJQbBcwbBxgz0DC7ak4rIkJoguw6dN7FgyvUKbX7la7Xg-EMGvHuPa9QgaZyPJIfymQ8CWznl02hiZK6-Bur80lOSce9lqX3173ceiGQHa7a5-vs7-mB2cn8eZeU284qOEy4NvfHM83DPI2kXrNaJpgXxfC4a0p6gpaxg5OxtJlMYpZ2uXgFzlio" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Product Showcase Section -->
+        <section class="py-24 max-w-7xl mx-auto px-8" id="showcase">
+            <div class="bg-on-background rounded-[2rem] p-12 lg:p-20 relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-1/2 h-full nutri-gradient opacity-10 blur-[120px]"></div>
+                <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                    <div class="space-y-8">
+                        <h2 class="text-5xl font-extrabold font-headline text-white leading-tight">Product Showcase</h2>
+                        <p class="text-white/70 text-xl leading-relaxed">
+                            Experience the seamless interface designed for clarity and focus. Every interaction is
+                            optimized to keep you on track without getting in your way.
+                        </p>
+                        <div class="flex flex-wrap gap-4">
+                            <div class="flex items-center gap-3 text-white">
+                                <span class="material-symbols-outlined text-primary-container">verified</span> Dark Mode
+                                Ready
+                            </div>
+                            <div class="flex items-center gap-3 text-white">
+                                <span class="material-symbols-outlined text-primary-container">verified</span> Real-time
+                                Sync
+                            </div>
+                            <div class="flex items-center gap-3 text-white">
+                                <span class="material-symbols-outlined text-primary-container">verified</span> AI
+                                Suggestions
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <img alt="App UI Showcase"
+                            class="w-full h-auto rounded-xl shadow-2xl rotate-3 hover:rotate-0 transition-transform duration-500"
+                            data-alt="Multiple high-fidelity app screens floating in 3D space showcasing diet journals, calorie charts, and food scanner interactions"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDp1u-VzysPyQc6efZEI8btDAE6JVebG0-JtLSeSENBZjBuvCQrsTZnCx5KTjttrjjfPysOBmZqrQuq_6jZGPsQsNH9izFpl2hMOU3BwmrqP7wg0xmOe2_pdTlzQiOi9xCo1MF_BrVnV8e1847v1xldFZZT31T29XR6dt7v5nzgpDaUeXcmmM9bPOsK_8xr0vGAFIHlwn4ZXLOueETpnBFjzOYWAy4t5DsQYDIZoH-BGGlXpSN1msy7c1fCIbG-Ek3otNpdJi-G7u0" />
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Project Discovery Section -->
+        <section class="py-24 bg-surface px-8">
+            <div class="max-w-4xl mx-auto text-center space-y-10">
+                <div>
+                    <h2 class="text-4xl font-extrabold font-headline mb-4">Explore the Project</h2>
+                    <p class="text-on-surface-variant text-lg">Discover the design journey and UX research behind Nutri
+                        Planner.</p>
+                </div>
+                <div class="flex flex-col sm:flex-row justify-center gap-6">
+                    <button
+                        class="flex items-center justify-center gap-3 px-10 py-5 bg-on-background text-white rounded-xl font-bold hover:bg-on-background/90 transition-colors">
+                        <span class="material-symbols-outlined">design_services</span> View on Figma
+                    </button>
+                    <button
+                        class="flex items-center justify-center gap-3 px-10 py-5 border-2 border-outline-variant text-on-surface font-bold rounded-xl hover:bg-surface-container transition-colors">
+                        <span class="material-symbols-outlined">description</span> View Case Study on Behance
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- Footer -->
+    <footer class="bg-surface-container-low py-12">
+        <div class="max-w-7xl mx-auto px-8 flex flex-col md:flex-row justify-between items-center gap-8">
+            <div class="flex flex-col items-center md:items-start gap-4">
+                <div class="text-lg font-bold text-primary font-headline">Nutri Planner</div>
+                <p class="text-on-surface-variant text-sm text-center md:text-left">© 2026 Nutri Planner. Precision
+                    Wellness for Vietnamese Cuisine.</p>
+            </div>
+            <div class="flex gap-8">
+                <a class="text-on-surface-variant hover:text-primary transition-colors text-sm font-medium"
+                    href="#">Figma</a>
+                <a class="text-on-surface-variant hover:text-primary transition-colors text-sm font-medium"
+                    href="#">Behance</a>
+                <a class="text-on-surface-variant hover:text-primary transition-colors text-sm font-medium"
+                    href="#">Privacy</a>
+                <a class="text-on-surface-variant hover:text-primary transition-colors text-sm font-medium"
+                    href="#">Terms</a>
+            </div>
         </div>
-
-        <!-- Step 2 -->
-        <div class="step-card">
-          <div class="step-phone">
-            <img
-              src="https://www.figma.com/api/mcp/asset/382bac6b-8534-4c56-bf98-8327d38b5101"
-              alt="Snap or Scan"
-            />
-            <div class="step-fade"></div>
-          </div>
-          <div class="step-info">
-            <div class="step-icon">
-              <img
-                src="https://www.figma.com/api/mcp/asset/dcedddc4-feab-43a4-917f-cbc32de2fdfe"
-                alt="scan"
-              />
-            </div>
-            <div class="step-text">
-              <h3>Snap or Scan</h3>
-              <p>
-                Take a photo of your food or scan a barcode — our AI handles the
-                rest.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Step 3 -->
-        <div class="step-card">
-          <div class="step-phone">
-            <img
-              src="https://www.figma.com/api/mcp/asset/8607f8e3-124f-49ab-b787-7243486621a6"
-              alt="Track Progress"
-            />
-            <div class="step-fade"></div>
-          </div>
-          <div class="step-info">
-            <div class="step-icon">
-              <img
-                src="https://www.figma.com/api/mcp/asset/81b456b4-61af-4318-ba88-eaf52e0320c1"
-                alt="track"
-              />
-            </div>
-            <div class="step-text">
-              <h3>Track Daily Progress</h3>
-              <p>
-                Log and visualize your meals, nutrient intake, and daily streaks
-                with ease.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Step 4 -->
-        <div class="step-card">
-          <div class="step-phone">
-            <img
-              src="https://www.figma.com/api/mcp/asset/62909f53-0329-4491-aa63-f8da1c6e4990"
-              alt="Insights"
-            />
-            <div class="step-fade"></div>
-          </div>
-          <div class="step-info">
-            <div class="step-icon">
-              <img
-                src="https://www.figma.com/api/mcp/asset/2ee73250-db4b-4ecd-a8c9-7b49b47d69f8"
-                alt="insights"
-              />
-            </div>
-            <div class="step-text">
-              <h3>Instant Nutrition Insights</h3>
-              <p>
-                Automatically get calories, protein, carbs, and fats calculated
-                for you.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CTA BANNER -->
-    <div class="cta-banner">
-      <div class="cta-banner-text">
-        <h3>Stay on Track<br />Every Day.</h3>
-        <p class="cta-desc">
-          Get gentle notifications to log your meals and hit your health goals.
-        </p>
-      </div>
-      <!-- Notification card -->
-      <div class="cta-notification">
-        <div class="notif-logo">
-          <img
-            src="https://www.figma.com/api/mcp/asset/913bab33-b2ca-4085-b959-c367229eb029"
-            alt="logo"
-          />
-        </div>
-        <div class="notif-text">
-          <p class="nt">Don't Forget to Log Your Meal 🍽️</p>
-          <p class="ns">
-            Your health journey needs today's update. Snap your food or add it
-            manually now!
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <!-- CTA BUTTON -->
-    <div class="cta-btn-wrap">
-      <button class="cta-btn">
-        Get Started
-        <img
-          src="https://www.figma.com/api/mcp/asset/09b95192-adb1-4116-8b47-a9d1de8ee5c4"
-          alt="rocket"
-        />
-      </button>
-    </div>
-
-    <!-- FOOTER -->
-    <footer>
-      <div class="logo">
-        <img src="./images/Logo.svg" alt="Logo" height="10" />
-      </div>
-      <p>Smart nutrition tracking powered by AI.<br />Eat well. Live better.</p>
-      <div class="footer-links">
-        <a href="#">Privacy</a>
-        <a href="#">Terms</a>
-        <a href="#">Contact</a>
-        <a href="#">Blog</a>
-      </div>
-      <p style="margin-top: 14px; font-size: 10px; color: #bbb">
-        © 2025 NutriPlanner. All rights reserved.
-      </p>
     </footer>
-  </body>
+</body>
+
 </html>
